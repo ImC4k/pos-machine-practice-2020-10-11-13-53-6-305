@@ -17,6 +17,16 @@ public class PosMachine {
         return "***<store earning no money>Receipt***\n";
     }
 
+    private String generateReceiptItemLines(ItemInfo[] itemsDetail, Map<String, Integer> itemsQuantity) {
+        String[] receiptLines = (String[]) Arrays.stream(itemsDetail).map(itemDetail ->
+                generateReceiptItemLine(itemDetail, itemsQuantity.get(itemDetail.getName()))).toArray();
+        return String.join("\n", receiptLines);
+    }
+
+    private String generateReceiptItemLine(ItemInfo itemDetail, Integer quantity) {
+        return String.format("Name: %s, Quantity: %d, Unit price: %d (yuan), Subtotal: %d (yuan)", itemDetail.getName(), quantity, itemDetail.getPrice(), calculateItemSubtotal(itemDetail, quantity));
+    }
+
     private Map<String, Integer> countQuantity(String[] items) {
         Map<String, Integer> quantityMap = new HashMap<>();
         Arrays.stream(items).forEach(item -> {

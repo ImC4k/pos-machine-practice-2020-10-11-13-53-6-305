@@ -33,6 +33,13 @@
 |check||
 |act||
 
+| function | generateReceiptItemLines |
+|-|-|
+|plan|3m|
+|do|6m|
+|check|need to lookup Arrays.stream.map usage|
+|act|familiarize myself with Arrays.stream|
+
 | function | generateReceiptItemLine |
 |-|-|
 |plan|3m|
