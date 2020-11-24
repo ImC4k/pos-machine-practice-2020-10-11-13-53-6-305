@@ -1,7 +1,7 @@
 | function | printReceipt |
 |-|-|
 |plan|1m|
-|do||
+|do|1m|
 |check||
 |act||
 
