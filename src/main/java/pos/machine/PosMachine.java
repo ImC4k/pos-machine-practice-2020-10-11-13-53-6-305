@@ -1,27 +1,32 @@
 package pos.machine;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PosMachine {
     public String printReceipt(List<String> barcodes) {
         List<ItemInfo> itemsDetail = ItemDataLoader.loadAllItemInfos();
-        return generateReceipt(itemsDetail);
+        return generateReceipt(barcodes, itemsDetail);
     }
 
-    private String generateReceipt(List<ItemInfo> itemsDetail) {
-        return null;
+    private String generateReceipt(List<String> ids, List<ItemInfo> itemsDetail) {
+        String receipt = generateReceiptHeader();
+        Map<String, Integer> itemsQuantity = countQuantity(ids.toArray(new String[0]));
+        receipt += generateReceiptItemLines(itemsDetail, itemsQuantity) + "\n";
+        Integer total = calculateTotal(itemsDetail, itemsQuantity);
+        receipt += generateReceiptFooter(total);
+        return receipt;
     }
 
     private String generateReceiptHeader() {
         return "***<store earning no money>Receipt***\n";
     }
 
-    private String generateReceiptItemLines(ItemInfo[] itemsDetail, Map<String, Integer> itemsQuantity) {
-        String[] receiptLines = (String[]) Arrays.stream(itemsDetail).map(itemDetail ->
-                generateReceiptItemLine(itemDetail, itemsQuantity.get(itemDetail.getName()))).toArray();
+    private String generateReceiptItemLines(List<ItemInfo> itemsDetail, Map<String, Integer> itemsQuantity) {
+        List<String> receiptLines = new ArrayList<>();
+        Arrays.stream(itemsQuantity.keySet().toArray(new String[0])).sorted().forEach(itemId -> {
+            ItemInfo itemDetail = getItemInfoById(itemId, itemsDetail);
+            receiptLines.add(generateReceiptItemLine(itemDetail, itemsQuantity.get(itemDetail.getBarcode())));
+        });
         return String.join("\n", receiptLines);
     }
 
@@ -44,5 +49,27 @@ public class PosMachine {
 
     private Integer calculateItemSubtotal(ItemInfo itemDetail, Integer quantity) {
         return itemDetail.getPrice() * quantity;
+    }
+
+    private Integer calculateTotal(List<ItemInfo> itemsDetail, Map<String, Integer> itemsQuantity) {
+        Integer total = 0;
+        for (String itemId: itemsQuantity.keySet()) {
+            total += calculateItemSubtotal(getItemInfoById(itemId, itemsDetail), itemsQuantity.get(itemId));
+        }
+        return total;
+    }
+
+    private ItemInfo getItemInfoById(String id, List<ItemInfo> allItemsDetail) {
+        for (ItemInfo item: allItemsDetail) {
+            if (item.getBarcode().equals(id)) return item;
+        }
+        return null;
+    }
+
+    private String generateReceiptFooter(Integer total) {
+        return String.format(
+                "----------------------\n" +
+                "Total: %d (yuan)\n" +
+                "**********************", total);
     }
 }

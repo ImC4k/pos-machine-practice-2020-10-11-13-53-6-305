@@ -15,7 +15,7 @@
 | function | generateReceipt |
 |-|-|
 |plan|5m|
-|do||
+|do|4m|
 |check||
 |act||
 
@@ -36,7 +36,7 @@
 | function | generateReceiptItemLines |
 |-|-|
 |plan|3m|
-|do|6m|
+|do|20m|
 |check|need to lookup Arrays.stream.map usage|
 |act|familiarize myself with Arrays.stream|
 
@@ -57,13 +57,20 @@
 | function | calculateTotal |
 |-|-|
 |plan|2m|
-|do||
-|check||
+|do|10m|
+|check|realized logical error in previous code|
 |act||
 
 | function | generateReceiptFooter |
 |-|-|
 |plan|2m|
-|do||
+|do|2m|
+|check||
+|act||
+
+| function | getItemInfoById |
+|-|-|
+|plan|2m|
+|do|2m|
 |check||
 |act||
