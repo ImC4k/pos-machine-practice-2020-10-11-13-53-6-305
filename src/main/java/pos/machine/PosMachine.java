@@ -1,7 +1,9 @@
 package pos.machine;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PosMachine {
     public String printReceipt(List<String> barcodes) {
@@ -38,5 +40,9 @@ public class PosMachine {
             }
         });
         return quantityMap;
+    }
+
+    private Integer calculateItemSubtotal(ItemInfo itemDetail, Integer quantity) {
+        return itemDetail.getPrice() * quantity;
     }
 }

@@ -43,14 +43,14 @@
 | function | generateReceiptItemLine |
 |-|-|
 |plan|3m|
-|do||
+|do|1m|
 |check||
 |act||
 
 | function | calculateItemSubtotal |
 |-|-|
 |plan|1m|
-|do||
+|do|1m|
 |check||
 |act||
 
