@@ -22,14 +22,14 @@
 | function | generateReceiptHeader |
 |-|-|
 |plan|2m|
-|do||
+|do|1m|
 |check||
 |act||
 
 | function | countQuantity |
 |-|-|
 |plan|5m|
-|do||
+|do|3m|
 |check||
 |act||
 

@@ -1,6 +1,7 @@
 package pos.machine;
 
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class PosMachine {
     public String printReceipt(List<String> barcodes) {
@@ -10,5 +11,22 @@ public class PosMachine {
 
     private String generateReceipt(List<ItemInfo> itemsDetail) {
         return null;
+    }
+
+    private String generateReceiptHeader() {
+        return "***<store earning no money>Receipt***\n";
+    }
+
+    private Map<String, Integer> countQuantity(String[] items) {
+        Map<String, Integer> quantityMap = new HashMap<>();
+        Arrays.stream(items).forEach(item -> {
+            if (quantityMap.containsKey(item)) {
+                quantityMap.put(item, quantityMap.get(item) + 1);
+            }
+            else {
+                quantityMap.put(item, 1);
+            }
+        });
+        return quantityMap;
     }
 }
